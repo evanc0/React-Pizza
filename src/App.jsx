@@ -1,25 +1,23 @@
 import './scss/app.scss';
 
 import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import PizzaBlock from './components/PizzaBlock';
+import { useLocation } from 'react-router-dom';
+
+import Home from './pages/Home';
+
+import Cart from './pages/Cart';
 
 function App() {
+  const location = useLocation();
+  console.log(location);
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            <PizzaBlock title="Мексиканская" price="500" />
-          </div>
-        </div>
+        {/* <Route path="/" element={<Home />} /> */}
+        {location.pathname === '/cart' && <Cart />}
+        {location.pathname === '/' && <Home />}
+        {/* {location.pathname == '*' && } */}
       </div>
     </div>
   );
