@@ -6,17 +6,18 @@ import { useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 
 import Cart from './pages/Cart';
+import { useState } from 'react';
 
 function App() {
+  const [searchValue, setSearchValue] = useState('');
   const location = useLocation();
   console.log(location);
   return (
     <div className="wrapper">
-      <Header />
+      <Header withSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="content">
-        {/* <Route path="/" element={<Home />} /> */}
         {location.pathname === '/cart' && <Cart />}
-        {location.pathname === '/' && <Home />}
+        {location.pathname === '/' && <Home searchValue={searchValue} />}
         {/* {location.pathname == '*' && } */}
       </div>
     </div>
