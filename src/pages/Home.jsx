@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Pagination from '../components/Pagination/Pagination';
+import { SearchContext } from '../App';
 
-function Home({ searchValue }) {
+function Home() {
   const [items, setItems] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +17,8 @@ function Home({ searchValue }) {
     name: 'популярности',
     sortProperty: 'rating',
   });
+
+  const { searchValue } = useContext(SearchContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,7 +37,6 @@ function Home({ searchValue }) {
       });
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
-  console.log(paginationInfo);
 
   const blankArray = new Array(8).fill(0).map((item, index) => {
     return { id: Date.now() + index };

@@ -3,7 +3,6 @@ import ReactPaginate from 'react-paginate';
 import styles from './Pagination.module.scss';
 
 function Pagination({ total_items, total_pages, per_page, onChangePage }) {
-  console.log(total_items);
   return (
     <ReactPaginate
       className={styles.root}

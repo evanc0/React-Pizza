@@ -4,8 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 const NotFoundBlockPage = () => {
   const location = useLocation();
-  console.log(location);
-
   return (
     <>
       <div className="wrapper">

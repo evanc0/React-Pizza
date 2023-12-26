@@ -1,5 +1,4 @@
 function Categories({ value, onChangeCategory }) {
-  console.log(value, '!!DFSF');
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (

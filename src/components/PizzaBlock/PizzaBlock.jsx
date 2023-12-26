@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 function PizzaBlock({ name, price, imageUrl, sizes, types }) {
-  // console.log(name, price, sizes);
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 

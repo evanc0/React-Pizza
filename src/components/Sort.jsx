@@ -17,7 +17,6 @@ function Sort({ value, onChangeSort }) {
     setOpen(!open);
   };
 
-  console.log(open);
   return (
     <div className="sort">
       <div className="sort__label">

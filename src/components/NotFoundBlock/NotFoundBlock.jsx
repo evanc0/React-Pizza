@@ -3,8 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 const NotFoundBlock = () => {
   const location = useLocation();
-  console.log(location);
-
   return (
     <div className={styles.root}>
       <h1>
