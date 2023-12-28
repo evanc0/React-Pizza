@@ -1,19 +1,20 @@
-import './scss/app.scss';
+import { createContext, useState } from 'react';
 
-import Header from './components/Header';
 import { useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
-
 import Cart from './pages/Cart';
-import { createContext, useState } from 'react';
+import Header from './components/Header';
+
+import './scss/app.scss';
 
 export const SearchContext = createContext('');
-console.log(SearchContext);
+// console.log(SearchContext);
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
   const location = useLocation();
+
   return (
     <div className="wrapper">
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>

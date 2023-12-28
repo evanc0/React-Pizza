@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
+
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
@@ -8,15 +11,24 @@ import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
 
 function Home() {
+  const { categoryId, sort } = useSelector((state) => state.filter);
+
+  const dispatch = useDispatch();
+
   const [items, setItems] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
+  // const [sortType, setSortType] = useState({
+  //   name: 'популярности (по возрастанию)',
+  //   sortProperty: 'rating',
+  // });
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
+  // console.log(ca);
 
   const { searchValue } = useContext(SearchContext);
 
@@ -27,7 +39,7 @@ function Home() {
     const search = searchValue && `&name=*${searchValue}`;
 
     fetch(
-      `https://6d551e6e4aa49570.mokky.dev/items?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sortProperty}${search}`,
+      `https://6d551e6e4aa49570.mokky.dev/items?page=${currentPage}&limit=4&${category}&sortBy=${sort.sortProperty}${search}`,
     )
       .then((res) => res.json())
       .then((res) => {
@@ -36,9 +48,9 @@ function Home() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const blankArray = new Array(8).fill(0).map((item, index) => {
+  const blankArray = new Array(4).fill(0).map((item, index) => {
     return { id: Date.now() + index };
   });
   const skeletons = blankArray.map((obj) => <Skeleton key={obj.id} />);
@@ -48,13 +60,8 @@ function Home() {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onChangeCategory={(i) => {
-            setCategoryId(i);
-          }}
-        />
-        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
