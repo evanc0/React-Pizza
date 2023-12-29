@@ -17,9 +17,8 @@ function Search() {
 
   const updateSearchValue = useCallback(
     debounce((str) => {
-      console.log(event);
       setSearchValue(str);
-    }, 1000),
+    }, 400),
     [],
   );
 

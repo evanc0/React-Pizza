@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -12,24 +12,27 @@ import Pagination from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
 
 function Home() {
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, currentPage, sort } = useSelector((state) => state.filter);
 
   const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  // const [sortType, setSortType] = useState({
-  //   name: 'популярности (по возрастанию)',
-  //   sortProperty: 'rating',
-  // });
 
   const onChangeCategory = (id) => {
+    dispatch(setCurrentPage(1));
     dispatch(setCategoryId(id));
   };
 
-  // console.log(ca);
+  const onChangePage = (numer) => {
+    dispatch(setCurrentPage(numer));
+  };
+
+  // остался баг, при смене категории, я убрал лишнюю перерисовку,
+  // добавив сразу нужный setCurrentPage(1) в функции onChangeCategory,
+  // но всё равно цифра 1 не подсвечивается, если была выбрала страница 3,
+  // а я сменил категорию
 
   const { searchValue } = useContext(SearchContext);
 
@@ -46,11 +49,16 @@ function Home() {
       .then((res) => {
         setItems(res.data.items);
         setPaginationInfo(res.data.meta);
+
         setIsLoading(false);
       });
 
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  // useEffect(() => {
+  //   dispatch(setCurrentPage(1));
+  // }, [categoryId]);
 
   const blankArray = new Array(4).fill(0).map((item, index) => {
     return { id: Date.now() + index };
@@ -67,7 +75,7 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)} {...paginationInfo} />
+      <Pagination onChangePage={onChangePage} {...paginationInfo} />
     </div>
   );
 }
