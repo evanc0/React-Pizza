@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
@@ -38,15 +39,16 @@ function Home() {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue && `&name=*${searchValue}`;
 
-    fetch(
-      `https://6d551e6e4aa49570.mokky.dev/items?page=${currentPage}&limit=4&${category}&sortBy=${sort.sortProperty}${search}`,
-    )
-      .then((res) => res.json())
+    axios
+      .get(
+        `https://6d551e6e4aa49570.mokky.dev/items?page=${currentPage}&limit=4&${category}&sortBy=${sort.sortProperty}${search}`,
+      )
       .then((res) => {
-        setItems(res.items);
-        setPaginationInfo(res.meta);
+        setItems(res.data.items);
+        setPaginationInfo(res.data.meta);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
