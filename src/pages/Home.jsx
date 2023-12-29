@@ -29,11 +29,6 @@ function Home() {
     dispatch(setCurrentPage(numer));
   };
 
-  // остался баг, при смене категории, я убрал лишнюю перерисовку,
-  // добавив сразу нужный setCurrentPage(1) в функции onChangeCategory,
-  // но всё равно цифра 1 не подсвечивается, если была выбрала страница 3,
-  // а я сменил категорию
-
   const { searchValue } = useContext(SearchContext);
 
   useEffect(() => {
@@ -75,7 +70,7 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination onChangePage={onChangePage} {...paginationInfo} />
+      <Pagination onChangePage={onChangePage} currentPage={currentPage} {...paginationInfo} />
     </div>
   );
 }
