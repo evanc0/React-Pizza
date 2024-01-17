@@ -1,15 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import logoSvg from '../assets/img/pizza-logo.svg';
-import Search from './Search/Search';
-import { useSelector, useDispatch } from 'react-redux';
+import logoSvg from "../assets/img/pizza-logo.svg";
+import Search from "./Search/Search";
+import { useSelector } from "react-redux";
 
 function Header({ withSearch }) {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  const itemsCartCount = items.reduce((sum, obj) => {
-    return obj.count + sum;
-  }, 0);
-  const dispatch = useDispatch();
+  const totalCount = items.reduce((sum, obj) => obj.count + sum, 0);
 
   console.log(totalPrice);
 
@@ -35,7 +32,8 @@ function Header({ withSearch }) {
               height="18"
               viewBox="0 0 18 18"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M6.33333 16.3333C7.06971 16.3333 7.66667 15.7364 7.66667 15C7.66667 14.2636 7.06971 13.6667 6.33333 13.6667C5.59695 13.6667 5 14.2636 5 15C5 15.7364 5.59695 16.3333 6.33333 16.3333Z"
                 stroke="white"
@@ -58,7 +56,7 @@ function Header({ withSearch }) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{itemsCartCount}</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
