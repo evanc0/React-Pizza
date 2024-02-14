@@ -1,8 +1,8 @@
-import styles from './NotFoundBlock.module.scss';
-import { useLocation } from 'react-router-dom';
+import styles from "./NotFoundBlock.module.scss";
+// import { useLocation } from 'react-router-dom';
 
-const NotFoundBlock = () => {
-  const location = useLocation();
+const NotFoundBlock: React.FC = () => {
+  // const location = useLocation();
   return (
     <div className={styles.root}>
       <h1>

@@ -1,10 +1,12 @@
-import { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+//@ts-ignore
 import qs from "qs";
 
 import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -16,30 +18,25 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Pagination from "../components/Pagination/Pagination";
 
-import { SearchContext } from "../App";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
-function Home() {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { categoryId, currentPage, sort } = useSelector(
-    (state) => state.filter
-  );
-  const { items, status, paginationInfo } = useSelector((state) => state.pizza);
-  const { searchValue } = useContext(SearchContext);
+  const { items, status, paginationInfo } = useSelector(selectPizzaData);
+  const { categoryId, currentPage, sort, searchValue } =
+    useSelector(selectFilter);
 
-  // const [items, setItems] = useState([]);
-
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (index: number) => {
     dispatch(setCurrentPage(1));
-    dispatch(setCategoryId(id));
+    dispatch(setCategoryId(index));
   };
 
-  const onChangePage = (numer) => {
-    dispatch(setCurrentPage(numer));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -47,6 +44,7 @@ function Home() {
     const search = searchValue && `&name=*${searchValue}`;
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         sort,
         search,
@@ -55,7 +53,7 @@ function Home() {
       })
     );
 
-    window, scrollTo(0, 0);
+    window.scrollTo(0, 0);
   };
 
   // Если изменили параметры и был первый рендер
@@ -63,8 +61,8 @@ function Home() {
     if (isMounted.current) {
       const queryString = qs.stringify({
         sortBy: sort.sortProperty,
-        category: categoryId,
-        page: currentPage,
+        categoryId: categoryId,
+        currentPage: currentPage,
       });
 
       navigate(`?${queryString}`);
@@ -77,22 +75,25 @@ function Home() {
     if (window.location.search) {
       console.log("pfikj");
       const params = qs.parse(window.location.search.substring(1));
+
       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-      // const fix = 100;
-      // console.log(sort);
-      // console.log(params);
+      console.log(
+        window.location.search.substring(1) +
+          " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      );
       dispatch(
         setFilters({
           ...params,
-          // fix,
           sort,
         })
       );
       isSearch.current = true;
 
       //костыль ниже | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX |
-      console.log(window.location.search, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      if (window.location.search === "?sortBy=rating&category=0&page=1") {
+
+      if (
+        window.location.search === "?sortBy=rating&categoryId=0&currentPage=1"
+      ) {
         console.log("Сработал костыль");
         getPizzas();
       }
@@ -114,7 +115,7 @@ function Home() {
     return { id: Date.now() + index };
   });
   const skeletons = blankArray.map((obj) => <Skeleton key={obj.id} />);
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
 
   return (
     <div className="container">
@@ -137,12 +138,15 @@ function Home() {
         </div>
       )}
       <Pagination
+        total_items={0}
+        total_pages={0}
+        per_page={0}
         onChangePage={onChangePage}
         currentPage={currentPage}
         {...paginationInfo}
       />
     </div>
   );
-}
+};
 
 export default Home;

@@ -1,8 +1,9 @@
-import Header from '../Header';
-import styles from './NotFoundBlock.module.scss';
-import { useLocation } from 'react-router-dom';
+import React from "react";
+import Header from "../Header";
+import styles from "./NotFoundBlock.module.scss";
+import { useLocation } from "react-router-dom";
 
-const NotFoundBlockPage = () => {
+const NotFoundBlockPage: React.FC = () => {
   const location = useLocation();
   return (
     <>

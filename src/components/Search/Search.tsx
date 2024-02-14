@@ -1,28 +1,30 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import debounce from 'lodash.debounce';
+import React, { useCallback, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 
-import styles from './Search.module.scss';
-import { SearchContext } from '../../App';
+import styles from "./Search.module.scss";
 
-function Search() {
-  const [value, setValue] = useState('');
-  const { setSearchValue } = useContext(SearchContext);
-  const inputRef = useRef();
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../redux/slices/filterSlice";
+
+const Search: React.FC = () => {
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
-    setSearchValue('');
-    setValue('');
-    inputRef.current.focus();
+    dispatch(setSearchValue(""));
+    setValue("");
+    inputRef.current?.focus();
   };
 
   const updateSearchValue = useCallback(
     debounce((str) => {
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
     }, 400),
-    [],
+    []
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -35,7 +37,8 @@ function Search() {
         enableBackground="new 0 0 32 32"
         id="Editable-line"
         version="1.1"
-        viewBox="0 0 32 32">
+        viewBox="0 0 32 32"
+      >
         <circle
           cx="14"
           cy="14"
@@ -74,12 +77,13 @@ function Search() {
           onClick={onClickClear}
           className={styles.clearIcon}
           viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
         </svg>
       )}
     </div>
   );
-}
+};
 
 export default Search;
