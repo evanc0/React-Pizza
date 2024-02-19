@@ -41,12 +41,13 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const onClickAdd = () => {
     const item: CartItem = {
       id,
-      title: name,
+      name,
       price,
       imageUrl,
-      type: typeNames[activeType],
-      size: sizes[activeSize],
+      types: typeNames[activeType],
+      sizes: sizes[activeSize],
       count: 0,
+      rating,
     };
 
     dispatch(addItem(item));

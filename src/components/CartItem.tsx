@@ -1,34 +1,43 @@
 import { useDispatch } from "react-redux";
-import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
+import {
+  CartItem,
+  addItem,
+  minusItem,
+  removeItem,
+} from "../redux/slices/cartSlice";
 import React from "react";
 
-type CartProps = {
-  id: number;
-  title: string;
-  type: string;
-  size: number;
-  price: number;
-  count: number;
-  imageUrl: string;
-};
+// Если есть необходимость добавить типизацию для доп пропсов в компоненте, пишем type CartProps = {*тут типизируем новые пропсы*} & Pick*Продолжаем писать*
+type CartProps = Pick<
+  CartItem,
+  "id" | "name" | "types" | "sizes" | "price" | "count" | "imageUrl" | "rating"
+>;
 
-const CartItem: React.FC<CartProps> = ({
+const CartPizza: React.FC<CartProps> = ({
   id,
-  title,
-  type,
-  size,
+  name,
+  types,
+  sizes,
   price,
   count,
   imageUrl,
+  rating,
 }) => {
-  console.log(id);
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
     dispatch(
       addItem({
         id,
-      })
+        // name,
+        // types,
+        // sizes,
+        // price,
+        // count,
+        // imageUrl,
+        // rating,
+        // типо нет смысла передавать туда весь объект,  поэтомиу обманываем тс, чтобы передавать онли id
+      } as CartItem)
     );
   };
 
@@ -48,9 +57,9 @@ const CartItem: React.FC<CartProps> = ({
         <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
-        <h3>{title}</h3>
+        <h3>{name}</h3>
         <p>
-          {type}, {size} см.
+          {types}, {sizes} см.
         </p>
       </div>
       <div className="cart__item-count">
@@ -128,4 +137,4 @@ const CartItem: React.FC<CartProps> = ({
   );
 };
 
-export default CartItem;
+export default CartPizza;

@@ -4,8 +4,9 @@ import qs from "qs";
 
 import { useNavigate } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
+  FilterSliseState,
   selectFilter,
   setCategoryId,
   setCurrentPage,
@@ -13,15 +14,20 @@ import {
 } from "../redux/slices/filterSlice";
 
 import Categories from "../components/Categories";
-import Sort, { list } from "../components/Sort";
+import SortPopup, { list } from "../components/SortPopup";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Pagination from "../components/Pagination/Pagination";
 
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
+import {
+  SearchPizzaParams,
+  fetchPizzas,
+  selectPizzaData,
+} from "../redux/slices/pizzaSlice";
+import { useAppDispatch } from "../redux/store";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -42,11 +48,10 @@ const Home: React.FC = () => {
   const getPizzas = async () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue && `&name=*${searchValue}`;
-
+    const sortBy = sort.sortProperty;
     dispatch(
-      //@ts-ignore
       fetchPizzas({
-        sort,
+        sortBy,
         search,
         category,
         currentPage,
@@ -73,18 +78,18 @@ const Home: React.FC = () => {
   // Если был первый рендер, то проверяем URL-параметры и сохраняем в редаксе
   useEffect(() => {
     if (window.location.search) {
-      console.log("pfikj");
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
 
       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-      console.log(
-        window.location.search.substring(1) +
-          " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      );
+
       dispatch(
         setFilters({
-          ...params,
-          sort,
+          searchValue: params.search,
+          categoryId: Number(params.category),
+          currentPage: Number(params.currentPage),
+          sort: sort || list[0],
         })
       );
       isSearch.current = true;
@@ -121,7 +126,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort />
+        <SortPopup />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (

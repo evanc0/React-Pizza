@@ -3,17 +3,26 @@ import { RootState } from "../store";
 
 // type SortProperty = "rating" | "name" | "price" | "-rating" | "-name" | "-price";
 
+export enum SortPropertyEnum {
+  RATING_DESC = "rating",
+  RATING_ASC = "-rating",
+  NAME_DESC = "name",
+  NAME_ASC = "-name",
+  PRICE_DESC = "price",
+  PRICE_ASC = "-price",
+}
+
 type Sort = {
   name: string;
-  sortProperty: "rating" | "name" | "price" | "-rating" | "-name" | "-price";
+  sortProperty: SortPropertyEnum;
 };
 
-interface FilterSliseState {
+export type FilterSliseState = {
   searchValue: string;
   categoryId: number;
   currentPage: number;
   sort: Sort;
-}
+};
 
 const initialState: FilterSliseState = {
   searchValue: "",
@@ -21,7 +30,7 @@ const initialState: FilterSliseState = {
   currentPage: 1,
   sort: {
     name: "популярности (по возрастанию)",
-    sortProperty: "rating",
+    sortProperty: SortPropertyEnum.RATING_DESC,
   },
 };
 

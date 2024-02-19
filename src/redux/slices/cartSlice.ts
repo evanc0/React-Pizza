@@ -3,18 +3,19 @@ import { RootState } from "../store";
 
 export type CartItem = {
   id: number;
-  title: string;
+  name: string;
   price: number;
   imageUrl: string;
-  type: string;
-  size: number;
+  types: string;
+  sizes: number;
   count: number;
+  rating: number;
 };
 
-interface CartSliseState {
+type CartSliseState = {
   totalPrice: number;
   items: CartItem[];
-}
+};
 
 const initialState: CartSliseState = {
   totalPrice: 0,
