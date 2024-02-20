@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import { useParams, useNavigate } from "react-router-dom";
-import { SearchPizzaParams } from "../redux/slices/pizzaSlice";
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<{

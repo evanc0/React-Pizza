@@ -66,12 +66,13 @@ export type SearchPizzaParams = {
 export const fetchPizzas = createAsyncThunk<MyData, SearchPizzaParams>(
   "pizza/fetchPizzasStatus",
   async (params) => {
-    console.log(params);
+    // console.log(params);
     const { sortBy, search, category, currentPage } = params;
+    console.log(params);
     const { data } = await axios.get<MyData>(
       `https://6d551e6e4aa49570.mokky.dev/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}${search}`
     );
-    console.log(data);
+    // console.log(data);
     return data;
   }
 );
@@ -89,22 +90,22 @@ const pizzaSlice = createSlice({
     builder
       .addCase(fetchPizzas.pending, (state) => {
         state.status = Status.LOADING;
-        console.log(state.status);
+        // console.log(state.status);
         state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        console.log(action, "fulfilled");
+        // console.log(action, "fulfilled");
         state.items = action.payload.items;
         state.paginationInfo = action.payload.meta;
 
         state.status = Status.SUCCESS;
-        console.log(state.status);
+        // console.log(state.status);
         if (action.payload.items.length === 0) {
           state.status = Status.ERROR;
         }
       })
       .addCase(fetchPizzas.rejected, (state, action) => {
-        console.log(action, "rejected");
+        // console.log(action, "rejected");
         state.status = Status.ERROR;
         console.log(state.status);
         state.items = [];

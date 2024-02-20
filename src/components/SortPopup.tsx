@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  SortPropertyEnum,
-  selectSort,
-  setSort,
-} from "../redux/slices/filterSlice";
+import { useDispatch } from "react-redux";
+import { Sort, SortPropertyEnum, setSort } from "../redux/slices/filterSlice";
+import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
+import React from "react";
 
 type SortListItem = {
   name: string;
   sortProperty: SortPropertyEnum;
+};
+
+type SortPopusProps = {
+  value: Sort;
 };
 
 export const list: SortListItem[] = [
@@ -29,11 +31,14 @@ export const list: SortListItem[] = [
   { name: "алфавиту (по убыванию)", sortProperty: SortPropertyEnum.NAME_ASC },
 ];
 
-function SortPopup() {
-  const sortType = useSelector(selectSort);
+const SortPopup: React.FC<SortPopusProps> = React.memo(({ value }) => {
+  console.log("sortPopup render");
+  useWhyDidYouUpdate("SortPopup", { value });
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  // const sortType = useSelector(selectSort);
   const sortRef = useRef<HTMLDivElement>(null);
+
+  const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj: SortListItem) => {
     console.log(obj);
@@ -68,7 +73,7 @@ function SortPopup() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortType.name}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -78,7 +83,7 @@ function SortPopup() {
                 key={i}
                 onClick={() => onClickListItem(obj)}
                 className={
-                  sortType.sortProperty === obj.sortProperty ? "active" : ""
+                  value.sortProperty === obj.sortProperty ? "active" : ""
                 }
               >
                 {obj.name}
@@ -94,6 +99,6 @@ function SortPopup() {
       )}
     </div>
   );
-}
+});
 
 export default SortPopup;

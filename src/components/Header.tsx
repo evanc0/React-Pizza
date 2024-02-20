@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   );
   const location = useLocation();
   // const pathname = window.location.pathname;
-  console.log(location);
+  // console.log(location);
 
   return (
     <div className="header">
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== "/cart" && <Search />}
         <div className="header__cart">
           {location.pathname !== "/cart" && (
             <Link to="/cart" className="button button--cart">

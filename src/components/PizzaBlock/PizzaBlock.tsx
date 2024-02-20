@@ -33,7 +33,6 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const [activeSize, setActiveSize] = useState<number>(0);
 
   const cartItem = useSelector(selectCartItemById(id));
-  console.log(useSelector(selectCartItemById));
   const dispatch = useDispatch();
 
   const addedCount = cartItem ? cartItem.count : 0;

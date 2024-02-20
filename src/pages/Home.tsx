@@ -36,10 +36,10 @@ const Home: React.FC = () => {
   const { categoryId, currentPage, sort, searchValue } =
     useSelector(selectFilter);
 
-  const onChangeCategory = (index: number) => {
+  const onChangeCategory = React.useCallback((index: number) => {
     dispatch(setCurrentPage(1));
     dispatch(setCategoryId(index));
-  };
+  }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -66,10 +66,10 @@ const Home: React.FC = () => {
     if (isMounted.current) {
       const queryString = qs.stringify({
         sortBy: sort.sortProperty,
-        categoryId: categoryId,
+        category: categoryId,
         currentPage: currentPage,
       });
-
+      console.log(queryString);
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       ) as unknown as SearchPizzaParams;
 
       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-
+      console.log(params);
       dispatch(
         setFilters({
           searchValue: params.search,
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
       //костыль ниже | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX | МБ ТРЕБУЕТСЯ FIX |
 
       if (
-        window.location.search === "?sortBy=rating&categoryId=0&currentPage=1"
+        window.location.search === "?sortBy=rating&category=0&currentPage=1"
       ) {
         console.log("Сработал костыль");
         getPizzas();
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <SortPopup />
+        <SortPopup value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
