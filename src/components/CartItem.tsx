@@ -1,11 +1,6 @@
 import { useDispatch } from "react-redux";
-import clsx from "clsx";
-import {
-  CartItem,
-  addItem,
-  minusItem,
-  removeItem,
-} from "../redux/slices/cartSlice";
+import { addItem, minusItem, removeItem } from "../redux/cart/slice";
+import { CartItem } from "../redux/cart/types";
 import React from "react";
 
 // Если есть необходимость добавить типизацию для доп пропсов в компоненте, пишем type CartProps = {*тут типизируем новые пропсы*} & Pick*Продолжаем писать*

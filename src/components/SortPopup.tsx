@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Sort, SortPropertyEnum, setSort } from "../redux/slices/filterSlice";
+import { setSort } from "../redux/filter/slice";
+import { Sort, SortPropertyEnum } from "../redux/filter/types";
+
 import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 import React from "react";
 
