@@ -1,11 +1,13 @@
 import { useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Cart from "./pages/Cart";
+// import Cart from "./pages/Cart";
 import Header from "./components/Header";
-// import FullPizza from "./pages/FullPizza";
 
 import "./scss/app.scss";
+import React from "react";
+
+const Cart = React.lazy(() => import("./pages/Cart"));
 
 function App() {
   const location = useLocation();
@@ -15,7 +17,11 @@ function App() {
       <Header />
 
       <div className="content">
-        {location.pathname === "/cart" && <Cart />}
+        {location.pathname === "/cart" && (
+          <React.Suspense fallback={<div>Идёт загрузка корзины....</div>}>
+            <Cart />
+          </React.Suspense>
+        )}
         {location.pathname === "/" && <Home />}
         {/* {location.pathname === "/pizza/2" && <FullPizza />} */}
         {/* {location.pathname == '*' && } */}
