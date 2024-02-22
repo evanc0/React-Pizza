@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-//@ts-ignore
+
 import qs from "qs";
+//@ts-ignore ранее эта строка была выше, но я установил типы для qs "npm install @types/qs"
 
 import { useNavigate } from "react-router-dom";
 
@@ -10,14 +11,23 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/filter/slice";
+
+// import Categories from "../components/Categories";
+// import Skeleton from "../components/PizzaBlock/Skeleton";
+// import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
+// import Pagination from "../components/Pagination/Pagination";
+
+import {
+  Sort,
+  Categories,
+  Skeleton,
+  PizzaBlock,
+  Pagination,
+} from "../components/index";
+
+import { list } from "../components/Sort";
+
 import { selectFilter } from "../redux/filter/selectors";
-
-import Categories from "../components/Categories";
-import SortPopup, { list } from "../components/SortPopup";
-import Skeleton from "../components/PizzaBlock/Skeleton";
-import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
-import Pagination from "../components/Pagination/Pagination";
-
 import { selectPizzaData } from "../redux/pizza/selectors";
 import { fetchPizzas } from "../redux/pizza/asyncActions";
 import { SearchPizzaParams } from "../redux/pizza/types";
@@ -28,12 +38,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-
-  // add(777, 888);
-
-  // import("../utils/math").then((math) => {
-  //   console.log(math.add(16, 26));
-  // });
 
   const { items, status, paginationInfo } = useSelector(selectPizzaData);
   const { categoryId, currentPage, sort, searchValue } =
@@ -73,7 +77,7 @@ const Home: React.FC = () => {
         category: categoryId,
         currentPage: currentPage,
       });
-      console.log(queryString);
+
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
@@ -87,7 +91,7 @@ const Home: React.FC = () => {
       ) as unknown as SearchPizzaParams;
 
       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-      console.log(params);
+
       dispatch(
         setFilters({
           searchValue: params.search,
@@ -130,7 +134,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <SortPopup value={sort} />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (

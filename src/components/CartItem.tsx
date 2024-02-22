@@ -1,15 +1,15 @@
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/cart/slice";
-import { CartItem } from "../redux/cart/types";
+import { CartItem as CartItemType } from "../redux/cart/types";
 import React from "react";
 
 // Если есть необходимость добавить типизацию для доп пропсов в компоненте, пишем type CartProps = {*тут типизируем новые пропсы*} & Pick*Продолжаем писать*
 type CartProps = Pick<
-  CartItem,
+  CartItemType,
   "id" | "name" | "types" | "sizes" | "price" | "count" | "imageUrl" | "rating"
 >;
 
-const CartPizza: React.FC<CartProps> = ({
+export const CartItem: React.FC<CartProps> = ({
   id,
   name,
   types,
@@ -33,7 +33,7 @@ const CartPizza: React.FC<CartProps> = ({
         // imageUrl,
         // rating,
         // типо нет смысла передавать туда весь объект,  поэтомиу обманываем тс, чтобы передавать онли id
-      } as CartItem)
+      } as CartItemType)
     );
   };
 
@@ -133,5 +133,3 @@ const CartPizza: React.FC<CartProps> = ({
     </div>
   );
 };
-
-export default CartPizza;

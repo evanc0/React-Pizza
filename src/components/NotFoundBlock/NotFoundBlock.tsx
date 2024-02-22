@@ -1,8 +1,6 @@
 import styles from "./NotFoundBlock.module.scss";
-// import { useLocation } from 'react-router-dom';
 
-const NotFoundBlock: React.FC = () => {
-  // const location = useLocation();
+export const NotFoundBlock: React.FC = () => {
   return (
     <div className={styles.root}>
       <h1>
@@ -16,5 +14,3 @@ const NotFoundBlock: React.FC = () => {
     </div>
   );
 };
-
-export default NotFoundBlock;

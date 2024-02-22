@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../Header";
+import { Header } from "../Header";
 import styles from "./NotFoundBlock.module.scss";
 import { useLocation } from "react-router-dom";
 
-const NotFoundBlockPage: React.FC = () => {
+export const NotFoundBlockPage: React.FC = () => {
   const location = useLocation();
   return (
     <>
@@ -26,5 +26,3 @@ const NotFoundBlockPage: React.FC = () => {
     </>
   );
 };
-
-export default NotFoundBlockPage;

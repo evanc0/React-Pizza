@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 
 import logoSvg from "../assets/img/pizza-logo.svg";
-import Search from "./Search/Search";
+import { Search } from "../components/index";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/cart/selectors";
 import React, { useRef } from "react";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce(
     (sum: number, obj: any) => obj.count + sum,
@@ -15,13 +15,11 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   const isMounted = useRef(false);
-  // const pathname = window.location.pathname;
-  // console.log(location);
 
   React.useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
-      console.log(json);
+
       localStorage.setItem("cart", json);
     }
     isMounted.current = true;
@@ -82,5 +80,3 @@ const Header: React.FC = () => {
     </div>
   );
 };
-
-export default Header;

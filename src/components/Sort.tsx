@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSort } from "../redux/filter/slice";
-import { Sort, SortPropertyEnum } from "../redux/filter/types";
+import { Sort as SortType, SortPropertyEnum } from "../redux/filter/types";
 
 import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 import React from "react";
@@ -12,7 +12,7 @@ type SortListItem = {
 };
 
 type SortPopusProps = {
-  value: Sort;
+  value: SortType;
 };
 
 export const list: SortListItem[] = [
@@ -33,9 +33,8 @@ export const list: SortListItem[] = [
   { name: "алфавиту (по убыванию)", sortProperty: SortPropertyEnum.NAME_ASC },
 ];
 
-const SortPopup: React.FC<SortPopusProps> = React.memo(({ value }) => {
-  console.log("sortPopup render");
-  useWhyDidYouUpdate("SortPopup", { value });
+export const Sort: React.FC<SortPopusProps> = React.memo(({ value }) => {
+  useWhyDidYouUpdate("Sort", { value });
   const dispatch = useDispatch();
   // const sortType = useSelector(selectSort);
   const sortRef = useRef<HTMLDivElement>(null);
@@ -43,7 +42,6 @@ const SortPopup: React.FC<SortPopusProps> = React.memo(({ value }) => {
   const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj: SortListItem) => {
-    console.log(obj);
     dispatch(setSort(obj));
     setOpen(!open);
   };
@@ -102,5 +100,3 @@ const SortPopup: React.FC<SortPopusProps> = React.memo(({ value }) => {
     </div>
   );
 });
-
-export default SortPopup;

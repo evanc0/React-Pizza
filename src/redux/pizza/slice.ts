@@ -22,24 +22,19 @@ const pizzaSlice = createSlice({
     builder
       .addCase(fetchPizzas.pending, (state) => {
         state.status = Status.LOADING;
-        // console.log(state.status);
         state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        // console.log(action, "fulfilled");
         state.items = action.payload.items;
         state.paginationInfo = action.payload.meta;
 
         state.status = Status.SUCCESS;
-        // console.log(state.status);
         if (action.payload.items.length === 0) {
           state.status = Status.ERROR;
         }
       })
       .addCase(fetchPizzas.rejected, (state, action) => {
-        // console.log(action, "rejected");
         state.status = Status.ERROR;
-        console.log(state.status);
         state.items = [];
       });
   },

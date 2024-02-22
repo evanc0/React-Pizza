@@ -1,13 +1,22 @@
+import React from "react";
+import Loadable from "react-loadable";
 import { useLocation } from "react-router-dom";
 
-import Home from "./pages/Home";
-// import Cart from "./pages/Cart";
-import Header from "./components/Header";
-
 import "./scss/app.scss";
-import React from "react";
 
-const Cart = React.lazy(() => import("./pages/Cart"));
+import Home from "./pages/Home";
+import { Header } from "./components/Header";
+// import Cart from "./pages/Cart";
+
+const Cart = React.lazy(
+  () => import(/* webpackChunkName: "Cart"*/ "./pages/Cart")
+);
+
+//Способ ниже почему то не работает
+// const Cart = Loadable({
+//   loader: () => import("./pages/Cart"),
+//   loading: () => <div>Идёт загрузка корзины....</div>,
+// });
 
 function App() {
   const location = useLocation();

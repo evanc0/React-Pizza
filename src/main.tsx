@@ -1,13 +1,25 @@
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import NotFoundBlockPage from "./components/NotFoundBlock/NotFoundBlockPage.jsx";
 
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-import FullPizza from "./pages/FullPizza";
+// import FullPizza from "./pages/FullPizza";
+import { NotFoundBlockPage } from "./components/NotFoundBlock/NotFoundBlockPage.jsx";
 import MainLayout from "./loyouts/MainLayout";
+
 // import MainLoyout from "./loyouts/MainLoyout.jsx";
+
+const FullPizza = React.lazy(
+  () => import(/* webpackChunkName: "FullPizza"*/ "./pages/FullPizza")
+);
+// const NotFoundBlockPage = React.lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "NotFoundBlockPage"*/ "./components/NotFoundBlock/NotFoundBlockPage"
+//     )
+// );
 
 const router = createBrowserRouter(
   [
@@ -23,7 +35,11 @@ const router = createBrowserRouter(
       children: [
         {
           path: "/pizza/:id",
-          element: <FullPizza />,
+          element: (
+            <Suspense fallback={<div>Идёт загрузка...</div>}>
+              <FullPizza />
+            </Suspense>
+          ),
         },
       ],
       element: <MainLayout />,
