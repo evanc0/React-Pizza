@@ -12,11 +12,6 @@ import {
   setFilters,
 } from "../redux/filter/slice";
 
-// import Categories from "../components/Categories";
-// import Skeleton from "../components/PizzaBlock/Skeleton";
-// import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
-// import Pagination from "../components/Pagination/Pagination";
-
 import {
   Sort,
   Categories,

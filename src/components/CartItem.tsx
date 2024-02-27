@@ -50,7 +50,7 @@ export const CartItem: React.FC<CartProps> = ({
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <img className="pizza-block__image" src={imageUrl} alt="Minus" />
       </div>
       <div className="cart__item-info">
         <h3>{name}</h3>
