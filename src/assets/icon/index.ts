@@ -1,0 +1,12 @@
+export { ArrowUpSvg } from "./ArrowUpSvg";
+export { BasketSvg } from "./BasketSvg";
+export { BigCartSvg } from "./BigCartSvg";
+export { CartIconSvg } from "./CartIconSvg";
+export { CloseSvg } from "./CloseSvg";
+export { EmptyCartSvg } from "./EmptyCartSvg";
+export { MinusSvg } from "./MinusSvg";
+export { PizzaLogoSvg } from "./PizzaLogoSvg";
+export { PlusCartItemSvg } from "./PlusCartItemSvg";
+export { SeacrhSvg } from "./SeacrhSvg";
+export { CloseSearchSvg } from "./CloseSearchSvg";
+export { BackArrowSvg } from "./BackArrowSvg";

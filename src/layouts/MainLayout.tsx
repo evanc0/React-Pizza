@@ -1,7 +1,7 @@
-import { Header } from "../components/index";
+import { Header } from "../components";
 import { Outlet } from "react-router-dom";
 
-const MainLoyout = () => {
+const MainLayout = () => {
   return (
     <div className="wrapper">
       <Header />
@@ -12,4 +12,4 @@ const MainLoyout = () => {
   );
 };
 
-export default MainLoyout;
+export default MainLayout;

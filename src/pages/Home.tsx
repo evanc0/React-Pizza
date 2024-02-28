@@ -18,7 +18,7 @@ import {
   Skeleton,
   PizzaBlock,
   Pagination,
-} from "../components/index";
+} from "../components";
 
 import { list } from "../components/Sort";
 

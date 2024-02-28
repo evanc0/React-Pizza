@@ -5,11 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-// import FullPizza from "./pages/FullPizza";
 import { NotFoundBlockPage } from "./components/NotFoundBlock/NotFoundBlockPage.jsx";
-import MainLayout from "./loyouts/MainLayout";
-
-// import MainLoyout from "./loyouts/MainLoyout.jsx";
+import MainLayout from "./layouts/MainLayout";
 
 const FullPizza = React.lazy(
   () => import(/* webpackChunkName: "FullPizza"*/ "./pages/FullPizza")

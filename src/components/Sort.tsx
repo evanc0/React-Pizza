@@ -5,9 +5,7 @@ import { Sort as SortType, SortPropertyEnum } from "../redux/filter/types";
 
 import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 import React from "react";
-import { ArrowUp } from "../assets/img/arrowUp";
-
-// import arrowUp from "../assets/img/arrowUp";
+import { ArrowUpSvg } from "../assets/icon";
 
 type SortListItem = {
   name: string;
@@ -62,8 +60,8 @@ export const Sort: React.FC<SortPopusProps> = React.memo(({ value }) => {
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
-        <ArrowUp />
-        {/* <img src={arrowUp} alt="" /> */}
+        <ArrowUpSvg classArrow="sort_arrow" />
+
         <b>Сортировка по:</b>
         <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>

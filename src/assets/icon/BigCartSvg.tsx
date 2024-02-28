@@ -1,4 +1,4 @@
-export const CartIcon = () => {
+export const BigCartSvg: React.FC = () => {
   return (
     <svg
       width="18"

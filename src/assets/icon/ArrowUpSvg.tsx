@@ -1,6 +1,11 @@
-export const ArrowUp = () => {
+type Class = {
+  classArrow: string;
+};
+
+export const ArrowUpSvg: React.FC<Class> = ({ classArrow }) => {
   return (
     <svg
+      className={classArrow}
       width="10"
       height="6"
       viewBox="0 0 10 6"
