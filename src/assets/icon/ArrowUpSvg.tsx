@@ -1,11 +1,11 @@
-type Class = {
-  classArrow: string;
+type Props = {
+  className: string;
 };
 
-export const ArrowUpSvg: React.FC<Class> = ({ classArrow }) => {
+export const ArrowUpSvg: React.FC<Props> = ({ className }) => {
   return (
     <svg
-      className={classArrow}
+      className={className}
       width="10"
       height="6"
       viewBox="0 0 10 6"

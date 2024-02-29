@@ -1,11 +1,11 @@
-type Class = {
-  searchSvgClass: string;
+type Props = {
+  className: string;
 };
 
-export const SeacrhSvg: React.FC<Class> = ({ searchSvgClass }) => {
+export const SeacrhSvg: React.FC<Props> = ({ className }) => {
   return (
     <svg
-      className={searchSvgClass}
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       enableBackground="new 0 0 32 32"
       id="Editable-line"

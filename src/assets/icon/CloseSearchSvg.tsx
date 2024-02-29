@@ -1,16 +1,16 @@
 type CloseSearchSvgType = {
   onClickClear: () => void;
-  closeSearchSvgClass: string;
+  className: string;
 };
 
 export const CloseSearchSvg: React.FC<CloseSearchSvgType> = ({
   onClickClear,
-  closeSearchSvgClass,
+  className,
 }) => {
   return (
     <svg
       onClick={onClickClear}
-      className={closeSearchSvgClass}
+      className={className}
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
     >

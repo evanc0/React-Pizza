@@ -69,9 +69,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 {type === 0 ? "тонкое" : "традиционное"}
               </li>
             ))}
-
-            {/* <li className="active">тонкое</li>
-          <li>традиционное</li> */}
           </ul>
           <ul>
             {sizes.map((size, index) => (
@@ -83,9 +80,6 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 {size} см.
               </li>
             ))}
-            {/* <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li> */}
           </ul>
         </div>
         <div className="pizza-block__bottom">
@@ -96,7 +90,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
           >
             <PlusCartItemSvg />
             <span>Добавить</span>
-            {addedCount > 0 && <i>{addedCount}</i>}
+            {!!addedCount && <i>{addedCount}</i>}
           </button>
         </div>
       </div>

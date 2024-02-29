@@ -6,5 +6,4 @@ export { CartItem } from "./CartItem";
 export { CartEmpty } from "./CartEmpty";
 export { Search } from "./Search/Search";
 export { Pagination } from "./Pagination/Pagination";
-export { NotFoundBlock } from "./NotFoundBlock/NotFoundBlock";
 export { Sort } from "./Sort";

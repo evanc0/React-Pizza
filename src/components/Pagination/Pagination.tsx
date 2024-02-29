@@ -28,5 +28,6 @@ export const Pagination: React.FC<PaginationProps> = ({
     pageCount={total_pages}
     forcePage={currentPage - 1}
     renderOnZeroPageCount={null}
+    activeLinkClassName={styles.selected}
   />
 );

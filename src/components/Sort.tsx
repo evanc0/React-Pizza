@@ -60,7 +60,7 @@ export const Sort: React.FC<SortPopusProps> = React.memo(({ value }) => {
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
-        <ArrowUpSvg classArrow="sort_arrow" />
+        <ArrowUpSvg className="sort_arrow" />
 
         <b>Сортировка по:</b>
         <span onClick={() => setOpen(!open)}>{value.name}</span>

@@ -255,44 +255,6 @@ body {
       }
     }
 
-    // &-count {
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: space-between;
-    //   width: 13%;
-
-    //   &-minus {
-    //     svg {
-    //       path:first-of-type {
-    //         display: none;
-    //       }
-    //     }
-    //     &:active {
-    //       transform: none;
-    //     }
-
-    //     &:disabled {
-    //       opacity: 0.4;
-    //       border-color: #787878;
-
-    //       &:hover {
-    //         background-color: transparent;
-    //         svg path {
-    //           fill: #787878;
-    //         }
-    //       }
-
-    //       svg path {
-    //         fill: #787878;
-    //       }
-    //     }
-    //   }
-
-    //   b {
-    //     font-size: 22px;
-    //   }
-    // }
-
     &-price {
       display: flex;
       align-items: center;
@@ -439,5 +401,21 @@ body {
       font-weight: 600;
       font-size: 18px;
     }
+  }
+}
+
+.not-found {
+  &-wrapper {
+    padding: 100px;
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+    span {
+      font-size: 64px;
+    }
+  }
+
+  &-description {
+    font-size: 22px;
   }
 }

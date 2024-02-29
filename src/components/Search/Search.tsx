@@ -32,7 +32,7 @@ export const Search: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <SeacrhSvg searchSvgClass={styles.icon} />
+      <SeacrhSvg className={styles.icon} />
       <input
         ref={inputRef}
         onChange={onChangeInput}
@@ -43,7 +43,7 @@ export const Search: React.FC = () => {
       {value && (
         <CloseSearchSvg
           onClickClear={onClickClear}
-          closeSearchSvgClass={styles.clearIcon}
+          className={styles.clearIcon}
         />
       )}
     </div>
