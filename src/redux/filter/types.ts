@@ -18,3 +18,8 @@ export type FilterSliseState = {
   currentPage: number;
   sort: Sort;
 };
+
+export type SortListItem = {
+  name: string;
+  sortProperty: SortPropertyEnum;
+};

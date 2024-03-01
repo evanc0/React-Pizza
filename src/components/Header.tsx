@@ -6,24 +6,20 @@ import { selectCart } from "../redux/cart/selectors";
 import React, { useRef } from "react";
 
 import { CartIconSvg, PizzaLogoSvg } from "../assets/icon";
+import { useIsMounted } from "../hooks/useIsMounted";
 
 export const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
-  const totalCount = items.reduce(
-    (sum: number, obj: any) => obj.count + sum,
-    0
-  );
+  const totalCount = items.reduce((sum, obj) => obj.count + sum, 0);
   const location = useLocation();
 
-  const isMounted = useRef(false);
+  const isMounted = useIsMounted();
 
   React.useEffect(() => {
-    if (isMounted.current) {
+    if (isMounted) {
       const json = JSON.stringify(items);
-
       localStorage.setItem("cart", json);
     }
-    isMounted.current = true;
   }, [items]);
 
   return (

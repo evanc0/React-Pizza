@@ -20,14 +20,15 @@ export const Search: React.FC = () => {
 
   const updateSearchValue = useCallback(
     debounce((str) => {
-      dispatch(setSearchValue(str));
+      dispatch(setSearchValue(str.trim().replace(/\s+/g, " ")));
     }, 400),
     []
   );
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    updateSearchValue(event.target.value);
+    const value = event.target.value.trimStart();
+    setValue(value);
+    updateSearchValue(value);
   };
 
   return (

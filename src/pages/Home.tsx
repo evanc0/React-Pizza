@@ -20,13 +20,12 @@ import {
   Pagination,
 } from "../components";
 
-import { list } from "../components/Sort";
-
 import { selectFilter } from "../redux/filter/selectors";
 import { selectPizzaData } from "../redux/pizza/selectors";
 import { fetchPizzas } from "../redux/pizza/asyncActions";
 import { SearchPizzaParams } from "../redux/pizza/types";
 import { useAppDispatch } from "../redux/store";
+import { sortList } from "../const/const";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -85,14 +84,14 @@ const Home: React.FC = () => {
         window.location.search.substring(1)
       ) as unknown as SearchPizzaParams;
 
-      const sort = list.find((obj) => obj.sortProperty === params.sortBy);
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
       dispatch(
         setFilters({
           searchValue: params.search,
           categoryId: Number(params.category),
           currentPage: Number(params.currentPage),
-          sort: sort || list[0],
+          sort: sort || sortList[0],
         })
       );
       isSearch.current = true;

@@ -26,24 +26,30 @@ export const CartItem: React.FC<CartProps> = ({
     dispatch(
       addItem({
         id,
-        // name,
-        // types,
-        // sizes,
-        // price,
-        // count,
-        // imageUrl,
-        // rating,
-        // типо нет смысла передавать туда весь объект,  поэтомиу обманываем тс, чтобы передавать онли id
-      } as CartItemType)
+        name,
+        types,
+        sizes,
+        price,
+        count,
+        imageUrl,
+        rating,
+      })
     );
   };
 
   const onClickMinus = () => {
+    console.log({ count, name });
+    if (count === 1) {
+      onClickRemove();
+      return;
+    }
+
     dispatch(minusItem(id));
   };
 
   const onClickRemove = () => {
-    if (window.confirm("Ты действительно хочешь удалитиь товар?")) {
+    //TODO: ДОБАВЬ МОДАЛКУ
+    if (window.confirm("Ты действительно хочешь удалить товар?")) {
       dispatch(removeItem(id));
     }
   };
@@ -61,7 +67,7 @@ export const CartItem: React.FC<CartProps> = ({
       </div>
       <div className="cart__item-count">
         <button
-          disabled={count === 1}
+          // disabled={count === 1}
           onClick={onClickMinus}
           className="button button--outline button--circle cart__item-count-minus"
         >

@@ -6,8 +6,8 @@ import { CartItem } from "../../redux/cart/types";
 import { selectCartItemById } from "../../redux/cart/selectors";
 import { Link } from "react-router-dom";
 import { PlusCartItemSvg } from "../../assets/icon";
-
-const typeNames = ["тонкое", "традиционное"];
+import { ValueOf } from "../../const/types";
+import { TypePizza } from "../../const/const";
 
 type PizzaBlockProps = {
   id: number;
@@ -15,7 +15,7 @@ type PizzaBlockProps = {
   price: number;
   imageUrl: string;
   sizes: number[];
-  types: number[];
+  types: ValueOf<typeof TypePizza>[];
   rating: number;
 };
 
@@ -28,8 +28,11 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   types,
   rating,
 }) => {
-  const [activeType, setActiveType] = useState<number>(0);
-  const [activeSize, setActiveSize] = useState<number>(0);
+  const [activeType, setActiveType] = useState<ValueOf<typeof TypePizza>>(
+    types[0]
+  );
+
+  const [activeSize, setActiveSize] = useState<number>(sizes[0]);
 
   const cartItem = useSelector(selectCartItemById(id));
   const dispatch = useDispatch();
@@ -42,8 +45,8 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
       name,
       price,
       imageUrl,
-      types: typeNames[activeType],
-      sizes: sizes[activeSize],
+      types: activeType,
+      sizes: activeSize,
       count: 0,
       rating,
     };
@@ -62,19 +65,25 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
           <ul>
             {types.map((type, index) => (
               <li
-                onClick={() => setActiveType(index)}
-                className={activeType === index ? "active" : ""}
+                onClick={() =>
+                  setActiveType((prevState) =>
+                    prevState === TypePizza.SLIM
+                      ? TypePizza.TRADITIONAL
+                      : TypePizza.SLIM
+                  )
+                }
+                className={activeType === type ? "active" : ""}
                 key={index}
               >
-                {type === 0 ? "тонкое" : "традиционное"}
+                {type === TypePizza.SLIM ? "тонкое" : "традиционное"}
               </li>
             ))}
           </ul>
           <ul>
             {sizes.map((size, index) => (
               <li
-                onClick={() => setActiveSize(index)}
-                className={activeSize === index ? "active" : ""}
+                onClick={() => setActiveSize(size)}
+                className={activeSize === size ? "active" : ""}
                 key={index}
               >
                 {size} см.
