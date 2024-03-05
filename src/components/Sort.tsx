@@ -6,12 +6,13 @@ import { Sort as SortType, SortListItem } from "../redux/filter/types";
 import { ArrowUpSvg } from "../assets/icon";
 import { sortList } from "../const/const";
 import { useClickOutside } from "../hooks/useClickOutside";
+import clsx from "clsx";
 
 type SortPopusProps = {
-  value: SortType;
+  currentSort: SortType;
 };
 
-export const Sort: FC<SortPopusProps> = memo(({ value }) => {
+export const Sort: FC<SortPopusProps> = memo(({ currentSort }) => {
   const dispatch = useDispatch();
   const sortRef = useRef<HTMLDivElement>(null);
 
@@ -35,20 +36,20 @@ export const Sort: FC<SortPopusProps> = memo(({ value }) => {
         <ArrowUpSvg className="sort_arrow" />
 
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{currentSort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((obj, i) => (
+            {sortList.map((sort, i) => (
               <li
                 key={i}
-                onClick={() => onClickListItem(obj)}
-                className={
-                  value.sortProperty === obj.sortProperty ? "active" : ""
-                }
+                onClick={() => onClickListItem(sort)}
+                className={clsx({
+                  active: currentSort.sortProperty === sort.sortProperty,
+                })}
               >
-                {obj.name}
+                {sort.name}
               </li>
             ))}
           </ul>
